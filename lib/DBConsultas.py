@@ -1,6 +1,10 @@
+# -*- coding: utf-8 -*-
+
 import pandas as pd
 from pymongo import MongoClient
 import pymongo
+
+
 
 class DB (object):
 
@@ -35,10 +39,16 @@ class DB (object):
 
 			self.__collectionCategorias = self.__db [ 'categoria' ]
 			self.__collectionConsultas = self.__db [ 'consulta' ]
-			self.__collectionUser = self.__db [ 'user' ]
+			self.__collectionBusquedas = self.__db [ 'busqueda' ]
+		
+			self.__collectionCategorias.create_index( [('idcategoria', pymongo.TEXT)], name='categoria_index', default_language='english')
+			self.__collectionConsultas.create_index( [('idconsulta', pymongo.TEXT)], name='consulta_index', default_language='english')
+			self.__collectionBusquedas.create_index( [('ID', pymongo.TEXT)], name='busqueda_index', default_language='english')
+			
 
 		except Exception as E:
 			print ('fail to connect mongodb @ %s:%d, %s', self.__host, self.__port, str (E) )
+			print (str(E))
 			return -1
 
 		print ("connected to mongodb @ %s:[%s]", self.__host, self.__port)
@@ -57,10 +67,14 @@ class DB (object):
 			pass
 			
 
-	def cargarCSV ( self, fich, codec='ISO-8859-1',delimiter=','):
+	def cargarConsultas ( self, fich, codec='WINDOWS-1252',delimiter=','):
 
 
 		print ('loading {}'.format (fich))
+
+		self.__collectionCategorias.remove({})
+		self.__collectionConsultas.remove({})
+
 		codec = str (codec)
 		delimiter = str(delimiter)
 
@@ -68,37 +82,66 @@ class DB (object):
 		df = pd.read_csv(fich,  encoding = codec )
 		df.set_index('Unnamed: 0')  
 
+		categoriasList = []
+
 		for column in  df.columns:
-			print (column.split('_'))
-		
+			data =  (column.split('_'))
+			if (data[0] != 'Unnamed: 0'):				
+				categoriasList.append ({'idcategoria':int(data[0]),'consulta':data[1]})
+
+		self.__collectionCategorias.insert (categoriasList)
+
+		consultasList = []
 		for index, row in df.iterrows():
-			print (row)
-			lista = [i for i, e in enumerate(row) if e != 0][1:]
-			import ipdb ; ipdb.set_trace()
+			
+			lista = [i-1 for i, e in enumerate(row) if e != 0][1:]
+			listaText = [categoriasList [i]['consulta'] for i in lista]
+			
+			consulta = row.tolist()[0].split('_')
 
-		import ipdb ; ipdb.set_trace()
-		exit()
-		with open(fich) as f:
-			#reader = csv.reader(f, delimiter=(delimiter), dialect=csv.excel_tab)
-			#columns = list(zip(*reader))
+			consultasList.append ({'idconsulta':int(consulta[0]),'consulta':consulta[1],'categorias':lista,'categoriasText':listaText})
+		
+		self.__collectionConsultas.insert (consultasList)
 
-			df = pd.read_csv(fich)
-			names = df.columns.values() 
-			import ipdb ; ipdb.set_trace()
 
-			#headers = d_reader.fieldnames
-			import ipdb ; ipdb.set_trace()
-			catTotales = []
-			contador = 0
-			for col in columns:
-				princ = col[0].decode(codec).encode('utf8') 
-				for data in col[1:]:
-					if not (data==''):
-						data = data.decode(codec).encode('utf8') 
-						catTotales.append ({'categoria':data,'familia':princ,'catid':contador})
-						contador += 1
 
-			#self.__collectionCategorias.insert ( catTotales )
+	def borrarColeccionBusq (self ):
+		self.__collectionBusquedas.remove({})
 
-			#import ipdb ; ipdb.set_trace()
+	def cargarBusquedas ( self, fich, codec='utf-8',delimiter=','):
+		print ('loading {}'.format (fich))
+
+		
+
+		codec = str (codec)
+		delimiter = str(delimiter)
+
+
+		with open (fich, encoding= codec ) as fichBusq:			
+
+			busquedasList = fichBusq.readlines()
+		
+		header = [b.replace ('"','').replace('\n','') for b in busquedasList.pop(0).split (',')]
+
+
+		#testing:
+		#busquedasList = busquedasList [:20]
+
+		idAnterior = -1
+
+		salida = []
+		pos = 0
+
+		for busqueda in busquedasList:
+			listaB = busqueda.replace('\n','').replace('"','').split (',')
+			
+			dato = {}
+			for i,unheader in enumerate (header):
+				dato [unheader] = listaB[i]
+			dato['ID'] = int (dato['ID'])
+
+			salida.append (dato)
+		
+		self.__collectionBusquedas.insert ( salida )
+		
 
