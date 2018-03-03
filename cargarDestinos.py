@@ -16,7 +16,7 @@ if __name__ == '__main__':
 	parser.add_argument('database', help='la base de datos de conexion')
 	parser.add_argument('user', help='el usuario de la bd')
 	parser.add_argument('pwd', help='la contrasenna de conexion')
-	parser.add_argument('csv', help='fichero con el csv con las busquedas')
+	parser.add_argument('txt', help='fichero con el txt con los destino, un destino por linea')
 	args = parser.parse_args()
 
 	config = configparser.ConfigParser()
@@ -26,5 +26,9 @@ if __name__ == '__main__':
 	#	print args.pwd
 	consultas =  DB (dbName=args.database, host=args.host, user=args.user, pwd=args.pwd)
 
-	
-	consultas.cargarBusquedas ( args.csv )		
+	consultas.cargarDestinos ( args.txt )	
+
+	#convertimos las busquedas donde comer en XXX sustiyendo la XXX por cada uno de los destinos 
+	#anteriores, normalizados.
+	consultas.expandirDestinos (  )	
+
