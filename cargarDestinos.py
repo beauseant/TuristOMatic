@@ -23,6 +23,8 @@ if __name__ == '__main__':
 	config.read('consultas.cfg')
 
 
+	
+
 	#	print args.pwd
 	consultas =  DB (dbName=args.database, host=args.host, user=args.user, pwd=args.pwd)
 

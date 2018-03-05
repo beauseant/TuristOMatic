@@ -11,6 +11,7 @@ import os
 
 if __name__ == '__main__':
 
+
 	parser = argparse.ArgumentParser(description='consultas')
 	parser.add_argument('host', help='el host al que nos conectamos')
 	parser.add_argument('database', help='la base de datos de conexion')
