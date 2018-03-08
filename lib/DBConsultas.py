@@ -51,11 +51,13 @@ class DB (object):
 			self.__collectionDestinosExpandidos 	= self.__db [ 'destinoExpandido' ]
 			self.__collectionLog					= self.__db [ 'log' ]
 		
-			self.__collectionCategorias.create_index( [('idcategoria', pymongo.TEXT)], name='categoria_index', default_language='english')
-			self.__collectionConsultas.create_index( [('idconsulta', pymongo.TEXT)], name='consulta_index', default_language='english')
-			self.__collectionBusquedas.create_index( [('ID', pymongo.TEXT)], name='busqueda_index', default_language='english')
-			self.__collectionDestinos.create_index( [('iddestino', pymongo.TEXT)], name='busqueda_index', default_language='english')
-			self.__collectionDestinosExpandidos.create_index( [('iddestino', pymongo.TEXT)], name='busqueda_index', default_language='english')
+			#self.__collectionCategorias.create_index( [('idcategoria', pymongo.TEXT)], name='categoria_index', default_language='english')
+			self.__collectionConsultas.create_index( ['idconsulta'], name='consulta_index')
+			self.__collectionBusquedas.create_index( ['ID'], name='busqueda_index')
+			self.__collectionBusquedas.create_index( ['iddestino'], name='busqueda_index')
+			self.__collectionBusquedas.create_index( ['idconsulta'], name='busqueda_index')
+			self.__collectionDestinos.create_index( ['iddestino'], name='busqueda_index')
+			self.__collectionDestinosExpandidos.create_index( ['iddestino'], name='busqueda_index')
 
 		except Exception as E:
 			print ('fail to connect mongodb @ %s:%d, %s', self.__host, self.__port, str (E) )
