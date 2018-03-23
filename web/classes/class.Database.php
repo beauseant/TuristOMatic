@@ -27,7 +27,17 @@
 
 
 			$collection = $this ->mdb->$dbname->destino;
-			return ($collection->find());
+			$allDestinos =  ($collection->find());
+
+			#Tipos de destinos en la bd:
+			$tipos = array();
+
+			#creamos un diccionario con el tipo (CCAA, provincia...) y dentro el destino con todos sus datos:
+			foreach ($allDestinos as $col) {
+				$tipos[$col['tipo']][] =[$col['destino'],$col['destino_normalizado'], $col['iddestino']];
+			}
+
+			return $tipos;
 
 
 		}

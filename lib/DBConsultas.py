@@ -40,6 +40,8 @@ class DB (object):
 			mongodb creates databases and collections automatically for you if they don't exist already. 
 		'''		
 		try:
+			
+
 			client = MongoClient( self.__host )
 			client[ self.__dbName ].authenticate ( self.__user, self.__pwd )
 			self.__db = client[ self.__dbName ]
@@ -52,12 +54,12 @@ class DB (object):
 			self.__collectionLog					= self.__db [ 'log' ]
 		
 			#self.__collectionCategorias.create_index( [('idcategoria', pymongo.TEXT)], name='categoria_index', default_language='english')
-			self.__collectionConsultas.create_index( ['idconsulta'], name='consulta_index')
+			'''self.__collectionConsultas.create_index( ['idconsulta'], name='consulta_index')
 			self.__collectionBusquedas.create_index( ['ID'], name='busqueda_index')
 			self.__collectionBusquedas.create_index( ['iddestino'], name='busqueda_index')
 			self.__collectionBusquedas.create_index( ['idconsulta'], name='busqueda_index')
 			self.__collectionDestinos.create_index( ['iddestino'], name='busqueda_index')
-			self.__collectionDestinosExpandidos.create_index( ['iddestino'], name='busqueda_index')
+			self.__collectionDestinosExpandidos.create_index( ['iddestino'], name='busqueda_index')'''
 
 		except Exception as E:
 			print ('fail to connect mongodb @ %s:%d, %s', self.__host, self.__port, str (E) )
@@ -73,12 +75,27 @@ class DB (object):
 		self.__user = user
 		self.__host = host
 
+
 		if self.connect () == -1:
 			raise NameError('DBConnectError')
 		else:
 			#self.createIndex ()
 			pass
-			
+
+
+	def createIndex (self):
+
+			self.__collectionConsultas.create_index( [('idconsulta', pymongo.TEXT)], name='consulta_index')			
+			self.__collectionBusquedas.create_index( [('ID', pymongo.TEXT)], name='busqueda_index_id')
+			#self.__collectionBusquedas.create_index( [('iddestino', pymongo.TEXT)], name='busqueda_index_destino')
+			#self.__collectionBusquedas.create_index( [('idconsulta', pymongo.TEXT)], name='jkokdfj')
+			self.__collectionDestinos.create_index( [('iddestino', pymongo.TEXT)], name='destino_index_iddestino')
+			#self.__collectionDestinos.create_index( [('tipo', pymongo.TEXT)], name='destinodff_tipo')
+			self.__collectionDestinosExpandidos.create_index( [('iddestino', pymongo.TEXT)], name='destino_expand_index_iddestino')
+
+
+		
+
 	#codec='WINDOWS-1252 DE'
 	#ISO-8859-2 FR
 	def cargarConsultas ( self, fich, codec='ISO-8859-2',delimiter=','):
@@ -138,7 +155,9 @@ class DB (object):
 
 		self.__collectionDestinos.remove({})
 
-		lines = [{'iddestino':posicion, 'destino':line.rstrip('\n'), 'destino_normalizado':self.normalizar (line.rstrip('\n'))} for posicion, line in enumerate (open( fich ))]
+		lines = [{'iddestino':posicion, 'destino':line.rstrip('\n').split(',')[1], 'destino_normalizado':self.normalizar (line.rstrip('\n').split(',')[1]), 'tipo':line.rstrip('\n').split(',')[0]} for posicion, line in enumerate (open( fich ))]
+		#lines = [{'iddestino':posicion, 'destino':line[1], 'destino_normalizado':self.normalizar (line[1]), 'tipo':line[0]} for posicion, line.rstrip('\n').split(',') in enumerate (open( fich ))]
+		import ipdb ; ipdb.set_trace()
 
 		self.__collectionDestinos.insert (lines)
 
