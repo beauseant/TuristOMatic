@@ -8,15 +8,23 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Logo Nav - Start Bootstrap Template</title>
+    <title>TuristOMatic</title>
 
     <!-- Bootstrap core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
     <link href="css/logo-nav.css" rel="stylesheet">
+    <!-- Custom styles for this template -->
+
+    <link href="js/datatables/dataTables.bootstrap4.css" rel="stylesheet">
+    <link href="css/jquery.dataTables.css" rel="stylesheet">
 
   </head>
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script type="text/javascript" language="javascript" src="js/datatables/jquery.dataTables.min.js"></script>
+  <script type="text/javascript" class="init"></script>
+
 
   <body>
 
@@ -32,7 +40,7 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
             <li class="nav-item active">
-              <a class="nav-link" href="#">Home
+              <a class="nav-link" href="index.php">Home
                 <span class="sr-only">(current)</span>
               </a>
             </li>

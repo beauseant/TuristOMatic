@@ -21,7 +21,7 @@
         $salida = $salida . '<td>' . $dest[1] .'</td>';      
 
         $salida = $salida . '<td>                                
-                                <input type="checkbox" name="'. $dest[2] .'" value="'. $dest[0] . '" >
+                                <input type="checkbox" name="'. $dest[2] .'" value="'. $dest[1] . '" >
                             ';
 
         $salida = $salida . '</tr></td>';

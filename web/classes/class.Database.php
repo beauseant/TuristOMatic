@@ -53,6 +53,54 @@
 
 		}
 
+		#diferentes tipos de busquedas (organic, questions, topbar, images...)
+		function getBusquedaTypeDistinct () {
+			$dbname = $this -> databaseName;
+
+
+			$collection = $this ->mdb->$dbname->busqueda;
+			return ($collection->distinct("Type"));
+			
+		}
+
+		function getBusquedasFilter ($listCategorias, $listDestinos, $listTipos ) {
+			$dbname = $this -> databaseName;
+
+			$queryDestino   = array('iddestino' => array( '$in' => $listDestinos));
+			$queryCategoria = array('idconsulta' => array( '$in' => $listCategorias));
+			$queryTipos		= array('Type' => array( '$in' => $listTipos));
+
+			$queryFinal 	= array ('$and' => array ($queryDestino, $queryCategoria, $queryTipos));
+
+			$collection = $this ->mdb->$dbname->busqueda;
+
+			return ($collection->find ( $queryFinal ));
+
+
+
+		}
+		function getCategorias () {
+
+			$dbname = $this -> databaseName;
+
+
+			$collection = $this ->mdb->$dbname->categoria;
+			return ($collection->find());
+
+
+		}
+
+		function getConsultasPorCategoria ( $listCategorias ) {
+
+			$dbname = $this -> databaseName;
+			
+			
+			$collection = $this ->mdb->$dbname->consulta;
+			return ($collection->find(array('categorias' => array( '$in' => $listCategorias))));
+			
+
+		}
+
 		function getTotalBusquedas () {
 
 			if (isset ($this -> numBusquedas)) {

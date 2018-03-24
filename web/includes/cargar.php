@@ -1,5 +1,4 @@
 <?php
-
     include_once ("includes/genericheader_navegacion.php");
 
 ?>
@@ -13,6 +12,7 @@
 
             #tomamos los destinos de la bd
             $dbname = 'TuristOMaticUK';
+            #,"ssl" => false
             $db = new Database ($DB_HOST , $dbname, array("username" => $DB_USER, "password" => $DB_PWD) );
             $destinosPorTipo = $db->getDestinos ();
             include ('includes/acordeonDestinos.php');

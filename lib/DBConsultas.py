@@ -84,14 +84,15 @@ class DB (object):
 
 
 	def createIndex (self):
-
+			
+			#self.__collectionDestinos.drop_indexes()
 			self.__collectionConsultas.create_index( [('idconsulta', pymongo.TEXT)], name='consulta_index')			
-			self.__collectionBusquedas.create_index( [('ID', pymongo.TEXT)], name='busqueda_index_id')
-			#self.__collectionBusquedas.create_index( [('iddestino', pymongo.TEXT)], name='busqueda_index_destino')
+			#self.__collectionBusquedas.create_index( [('ID', pymongo.TEXT)], name='busqueda_index_id')
 			#self.__collectionBusquedas.create_index( [('idconsulta', pymongo.TEXT)], name='jkokdfj')
 			self.__collectionDestinos.create_index( [('iddestino', pymongo.TEXT)], name='destino_index_iddestino')
 			#self.__collectionDestinos.create_index( [('tipo', pymongo.TEXT)], name='destinodff_tipo')
 			self.__collectionDestinosExpandidos.create_index( [('iddestino', pymongo.TEXT)], name='destino_expand_index_iddestino')
+			self.__collectionBusquedas.create_index( [('Type', pymongo.TEXT)], name='busqueda_index_typo')
 
 
 		

@@ -1,6 +1,13 @@
 <?php
-  session_start(); 
   include ('includes/genericheader.php');
+
+  if(!isset($_SESSION)){ 
+    session_start();
+  }else{
+    session_destroy();
+
+  }
+  
 
   if (isset ($_REQUEST['action']) || (isset ($_SESSION['action']))) {
 
