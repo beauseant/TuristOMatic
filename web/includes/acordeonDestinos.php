@@ -4,6 +4,7 @@
         <?php
             
             $contador = 0;
+
             foreach ($destinosPorTipo as $key => $value){
 
                 $collapse = $key . '_collapse';

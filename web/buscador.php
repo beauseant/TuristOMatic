@@ -1,10 +1,6 @@
         <?php
-
-
             
-
             include ("includes/genericheader_navegacion.php");
-            session_start(); 
             
         ?>
 
@@ -13,19 +9,21 @@
             <h1></h1>
             
             <?php
+                
                 #comprobamos si en la sesión ya estaba, de ser asi es que venimos desde la pagina anterior:
                 if ( (sizeof ($_REQUEST)== 0) ) {
                     echo '
                     <div class="alert alert-danger">
                             <strong>Necesito al menos un destino seleccionado...</strong>:
-                            <a href="index.php">Vuelva al inicio para añadir</a>
+                            <a href="destinos.php">Vuelva al inicio para añadir</a>
                     </div>                
                 ';
                 exit();
                     
                 }
-
+                session_start(); 
                 $_SESSION['listDestinos'] = $_REQUEST;
+                
 
                 $strDestinos = '';
 
@@ -37,7 +35,7 @@
                 echo '
                     <div class="alert alert-info">
                             <strong>Destinos seleccionados</strong>:'. $strDestinos  .'
-                            <a href="javascript:history.go(-1)">añadir más</a>
+                            <a href="destinos.php">añadir más</a>
                     </div>                
                 ';
 

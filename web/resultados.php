@@ -25,11 +25,11 @@
                     exit();                    
                 }
 
-                if (! isset ($_SESSION['listCategorias'])){
-                    $_SESSION['listCategorias'] = $_REQUEST;
-                }
-                
-                print_r (  ($_SESSION['listCategorias']));
+
+                $_SESSION['listCategorias'] = $_REQUEST;
+
+                print_r ($_SESSION['listCategorias']);
+
                 $db = new Database ($DB_HOST , $_SESSION['dbname'], array("username" => $DB_USER, "password" => $DB_PWD) );
 
                 $consultas = $db->getConsultasPorCategoria ( array_keys ($_SESSION['listCategorias']) );

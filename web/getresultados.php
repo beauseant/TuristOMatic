@@ -33,6 +33,7 @@
                     $strDestinos = $strDestinos . ','.  $value;
 
                 }
+                print_r (array_keys ($_SESSION['listDestinos']));
                 echo '
                     <div class="alert alert-info">
                             <strong>Destinos seleccionados</strong>:'. $strDestinos  .'
@@ -45,6 +46,7 @@
                     $strConsultas = $strConsultas . ','.  $value;
 
                 }
+                print_r (array_keys ($_SESSION['listCategorias']));
                 echo '
                     <div class="alert alert-info">
                             <strong>Consultas seleccionadas</strong>:'. $strConsultas  .'

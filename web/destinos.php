@@ -1,6 +1,5 @@
 <?php
     include_once ("includes/genericheader_navegacion.php");
-
 ?>
 
     <!-- Page Content -->
@@ -9,6 +8,7 @@
       <?php
             include_once ("classes/class.Database.php");
             require ("config.php");
+            session_start(); 
 
             #tomamos los destinos de la bd
             $dbname = 'TuristOMaticUK';

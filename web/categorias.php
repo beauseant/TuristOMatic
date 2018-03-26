@@ -81,7 +81,7 @@
                 $salida = '   
                 <form id="categoriasfrm"  method="POST" action="resultados.php">
                     <div class="table-responsive">
-                            <table id="categorias" class="table" cellspacing="0" width="100%">
+                            <table id="categorias_table" class="table" cellspacing="0" width="100%">
                                 <thead>
                                     <tr>
                                         <th>Categoría</th>
@@ -116,9 +116,10 @@
  
    <script type="text/javascript">
         // For demo to fit into DataTables site builder...
-        $('#categorias').
+        $('#categorias_table').
         dataTable({
-            "pageLength": 5
+            "pageLength": 25,
+            "searching": false
         });
     </script>
  
