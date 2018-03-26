@@ -73,16 +73,19 @@
                                                  array_keys ($_REQUEST)
                                     );
 
-                
+                $contador = 0;
+                $salida = '';
                 foreach ($busquedas as $key => $value) {
                     foreach ($value as $keydato => $dato) {
-                        print ($keydato . ':' . $dato);
-                        print '<br>';                        
+                        $salida = $salida . ($keydato . ':' . $dato);
+                        $salida = $salida . '<br>';                        
                     }
-                    print '<br>';                        
-                    print '-----';
-
+                    $salida = $salida .  '<br>';                        
+                    $salida = $salida . '-----';
+                    $contador ++;
                 }
 
+                echo '<h1>Encontradas: ' . $contador . 'búsquedas con esos datos:</h1>';
+                echo $salida;
 
             ?>

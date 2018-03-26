@@ -27,8 +27,10 @@
                     
                 }
                 
-                
+                print ($_REQUEST['buscadorSelect']);
+                print ($_SESSION['buscador']);
                 if (! isset ($_SESSION['buscador'])) {
+                    
                     $_SESSION['buscador'] = $_REQUEST['buscadorSelect'];
                 }
                 
@@ -86,7 +88,7 @@
                                 <thead>
                                     <tr>
                                         <th>Categoría</th>
-                                        <th></th>
+                                        <th>Seleccionar todos <input type="checkbox" id ="chckHead"/></th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -94,9 +96,9 @@
         
                 foreach ($categorias as $key => $value) {
                     $salida = $salida . '<tr>';
-                    $salida = $salida . '<td>' . $value['consulta'] .'</td>';            
+                    $salida = $salida . '<td>' . $value['consulta'] .'</td>';    
                     $salida = $salida . '<td>                                
-                                            <input type="checkbox" name="'. $value['idcategoria'] .'" value="'. $value['consulta'] . '" >
+                                            <input class= "chcktbl" type="checkbox" name="'. $value['idcategoria'] .'" value="'. $value['consulta'] . '" >
                                         ';            
                     $salida = $salida . '</td></tr>';
                 }
@@ -114,13 +116,25 @@
  
                 ?>
 
- 
-   <script type="text/javascript">
+             <script type="text/javascript">    
+            $('#chckHead').click(function () {
+
+            if (this.checked == false) {
+
+                $('.chcktbl:checked').attr('checked', false);
+            }
+            else {
+                $('.chcktbl:not(:checked)').attr('checked', true);
+
+            }
+            });
+
         // For demo to fit into DataTables site builder...
         $('#categorias_table').
         dataTable({
             "pageLength": 25,
-            "searching": false
+            "searching": true,
+            "lengthChange": false
         });
     </script>
  

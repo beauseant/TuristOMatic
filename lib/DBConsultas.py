@@ -158,7 +158,7 @@ class DB (object):
 
 		lines = [{'iddestino':posicion, 'destino':line.rstrip('\n').split(',')[1], 'destino_normalizado':self.normalizar (line.rstrip('\n').split(',')[1]), 'tipo':line.rstrip('\n').split(',')[0]} for posicion, line in enumerate (open( fich ))]
 		#lines = [{'iddestino':posicion, 'destino':line[1], 'destino_normalizado':self.normalizar (line[1]), 'tipo':line[0]} for posicion, line.rstrip('\n').split(',') in enumerate (open( fich ))]
-		import ipdb ; ipdb.set_trace()
+		#import ipdb ; ipdb.set_trace()
 
 		self.__collectionDestinos.insert (lines)
 

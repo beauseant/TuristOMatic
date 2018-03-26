@@ -1,8 +1,9 @@
 <?php
 
   include ('includes/genericheader.php');
-  session_destroy();
-  
+  session_start();
+  $_SESSION = array();
+
 
 
 ?>
