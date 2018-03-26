@@ -67,8 +67,9 @@
             // For demo to fit into DataTables site builder...
             $(\'#'. $contador . '_table' .'\').
                 dataTable({
-                    "pageLength": 5,
-                    "searching": false
+                    "pageLength": 10,
+                    "searching": true,
+                    "lengthChange": false
             });
             </script>
     ';

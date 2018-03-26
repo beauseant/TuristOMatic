@@ -1,6 +1,9 @@
 <?php
     
     include_once ("includes/genericheader_navegacion.php");
+    include_once ("classes/class.Database.php");
+    require ("config.php");
+
     session_start(); 
 
 ?>
@@ -47,8 +50,6 @@
                     </div>                
                 ';
 
-                include_once ("classes/class.Database.php");
-                require ("config.php");
     
                 #tomamos los destinos de la bd
                 switch ($_SESSION['buscador']) {

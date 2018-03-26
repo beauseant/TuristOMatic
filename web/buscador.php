@@ -1,6 +1,7 @@
         <?php
             
             include ("includes/genericheader_navegacion.php");
+            include_once ("classes/class.Database.php");
             
         ?>
 
@@ -23,6 +24,8 @@
                 }
                 session_start(); 
                 $_SESSION['listDestinos'] = $_REQUEST;
+
+                print_r ($_SESSION['listDestinos']);
                 
 
                 $strDestinos = '';
