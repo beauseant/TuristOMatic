@@ -19,10 +19,13 @@
 
     <link href="js/datatables/dataTables.bootstrap4.css" rel="stylesheet">
     <link href="css/jquery.dataTables.css" rel="stylesheet">
+    <link href="css/buttons.dataTables.min.css" rel="stylesheet">
 
   </head>
   <script src="vendor/jquery/jquery.min.js"></script>
   <script type="text/javascript" language="javascript" src="js/datatables/jquery.dataTables.min.js"></script>
+  <script type="text/javascript" language="javascript" src="js/datatables/dataTables.select.min.js"></script>
+  <script type="text/javascript" language="javascript" src="js/datatables/dataTables.buttons.min.js"></script>
   <script type="text/javascript" class="init"></script>
 
 

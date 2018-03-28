@@ -1,6 +1,7 @@
 <?php
 
   include ('includes/genericheader.php');
+  include_once ("classes/class.Database.php");
   session_start();
   $_SESSION = array();
 

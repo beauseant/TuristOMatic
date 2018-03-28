@@ -28,7 +28,7 @@
 
                 $_SESSION['listCategorias'] = $_REQUEST;
 
-                print_r ($_SESSION['listCategorias']);
+                #print_r ($_SESSION['listCategorias']);
 
                 $db = new Database ($DB_HOST , $_SESSION['dbname'], array("username" => $DB_USER, "password" => $DB_PWD) );
 

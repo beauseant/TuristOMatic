@@ -19,7 +19,7 @@
                         echo '
                         <div class="alert alert-danger">
                                 <strong>Necesito al menos un tipo de resultado seleccionado...</strong>:
-                                <a href="javascript:history.go(-1)">pulse para añadirla</a>
+                                <a href="resultados.php">pulse para añadirla</a>
                         </div>                
                     ';
                     exit();                    
@@ -33,7 +33,7 @@
                     $strDestinos = $strDestinos . ','.  $value;
 
                 }
-                print_r (array_keys ($_SESSION['listDestinos']));
+                #print_r (array_keys ($_SESSION['listDestinos']));
                 echo '
                     <div class="alert alert-info">
                             <strong>Destinos seleccionados</strong>:'. $strDestinos  .'
@@ -46,7 +46,7 @@
                     $strConsultas = $strConsultas . ','.  $value;
 
                 }
-                print_r (array_keys ($_SESSION['listCategorias']));
+                #print_r (array_keys ($_SESSION['listCategorias']));
                 echo '
                     <div class="alert alert-info">
                             <strong>Consultas seleccionadas</strong>:'. $strConsultas  .'
@@ -73,19 +73,51 @@
                                                  array_keys ($_REQUEST)
                                     );
 
-                $contador = 0;
-                $salida = '';
-                foreach ($busquedas as $key => $value) {
-                    foreach ($value as $keydato => $dato) {
-                        $salida = $salida . ($keydato . ':' . $dato);
-                        $salida = $salida . '<br>';                        
+
+                
+                $consultas = $db -> getConsultas ();
+                $consultasDict = array();
+                foreach ($consultas as $key => $value) {
+                    $salida = '';
+                    foreach ($value['categoriasText'] as $categoria ) {
+                        $salida = $salida . ',' . $categoria;
                     }
-                    $salida = $salida .  '<br>';                        
-                    $salida = $salida . '-----';
-                    $contador ++;
+                    $consultasDict[$value['idconsulta']] = $salida;
+                    
                 }
 
-                echo '<h1>Encontradas: ' . $contador . 'búsquedas con esos datos:</h1>';
-                echo $salida;
+                //$salida = $busquedas->toArray();*/
+
+
+                $salida = fopen("tmp/salida.csv", "wr") ;
+                $contador = 0;                            
+                foreach ($busquedas as $key => $value) {
+                    $value['iddestino'] = $_SESSION['listDestinos'][$value['iddestino']];
+                    $value['categoria'] = $consultasDict[$value['idconsulta']];
+                    foreach ($value as $keydato => $dato) {
+                        if ($contador == 0){
+                            fwrite ($salida,('"' . $keydato . '",'));    
+                        }else {
+                            fwrite ($salida,('"' . $dato . '",'));
+                        }
+
+                    }
+                    fwrite ($salida, PHP_EOL);
+                    $contador ++;
+                }
+                fclose ($salida);
+                
+
+                echo '<h1>Encontradas: ' . $contador . ' búsquedas con esos datos:</h1>';
+
+                $filename = 'tmp/salida.csv';
+
+                $size = filesize($filename);
+                $units = array( 'B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB');
+                $power = $size > 0 ? floor(log($size, 1024)) : 0;
+                $size = number_format($size / pow(1024, $power), 2, '.', ',') . ' ' . $units[$power];
+
+                echo '<a href="descarga.php">Descargar (' .  $size . ')</a>';
+                #print_r ($salida);
 
             ?>

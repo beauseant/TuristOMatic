@@ -25,7 +25,7 @@
                 session_start(); 
                 $_SESSION['listDestinos'] = $_REQUEST;
 
-                print_r ($_SESSION['listDestinos']);
+                #print_r ($_SESSION['listDestinos']);
                 
 
                 $strDestinos = '';

@@ -27,8 +27,8 @@
                     
                 }
                 
-                print ($_REQUEST['buscadorSelect']);
-                print ($_SESSION['buscador']);
+                #print ($_REQUEST['buscadorSelect']);
+                #print ($_SESSION['buscador']);
                 if (! isset ($_SESSION['buscador'])) {
                     
                     $_SESSION['buscador'] = $_REQUEST['buscadorSelect'];
@@ -87,18 +87,20 @@
                             <table id="categorias_table" class="table" cellspacing="0" width="100%">
                                 <thead>
                                     <tr>
+                                        <th>id</th>
                                         <th>Categoría</th>
-                                        <th>Seleccionar todos <input type="checkbox" id ="chckHead"/></th>
+                                        <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
                 ';
         
-                foreach ($categorias as $key => $value) {
+                foreach ($categorias as $key => $value) {                    
                     $salida = $salida . '<tr>';
+                    $salida = $salida . '<td>' . $value['idcategoria'] .'</td>';    
                     $salida = $salida . '<td>' . $value['consulta'] .'</td>';    
                     $salida = $salida . '<td>                                
-                                            <input class= "chcktbl" type="checkbox" name="'. $value['idcategoria'] .'" value="'. $value['consulta'] . '" >
+                                            <input class="all_chcktbl" id= "' . $value['idcategoria']. '_chcktbl" type="checkbox" " name="'. $value['idcategoria'] .'" value="'. $value['consulta'] . '" >
                                         ';            
                     $salida = $salida . '</td></tr>';
                 }
@@ -113,28 +115,67 @@
                 ';
         
                 print ($salida);
- 
+
+                echo '
+                        <script type="text/javascript">    
+                        // For demo to fit into DataTables site builder...
+                        $(document).ready(function() {              
+                            var table = $(\'#categorias_table\').
+                                DataTable({
+                                    "pageLength": 15,
+                                    "searching": true,
+                                    "lengthChange": false,
+                                    select: {
+                                        style: \'multi\'
+                                    },
+                                    dom: \'Bfrtip\',
+                                    buttons: [
+                                        \'selectAll\',
+                                        \'selectNone\'
+                                    ],
+                                    language: {
+                                        buttons: {
+                                            selectAll: "seleccionar todos",
+                                            selectNone: "no seleccionar ninguno"
+                                        }
+                                    },
+                                    "columnDefs": [{"targets":[0],"visible":false,"searchable":false}]            
+                                });
+            
+                            table
+                                .on( "select", function ( e, dt, type, indexes ) {
+                                    var rowData = table.rows( indexes ).data().toArray();
+                                    var chkbox = $("#"+  ((rowData[0][0] + "_chcktbl")));
+                                    chkbox.prop("checked", true);
+                                    
+                                } )
+                                .on( "deselect", function ( e, dt, type, indexes ) {
+                                    var rowData = table.rows( indexes ).data().toArray();
+                                    var chkbox = $("#"+ ((rowData[0][0] + "_chcktbl")));
+                                    chkbox.prop("checked", false);
+            
+                                } );     
+
+                                table.on( "buttons-action", function ( e, buttonApi, dataTable, node, config ) {                                    
+                                    if (buttonApi.text() == "seleccionar todos") {                        
+                                        
+                                        //Cambiamos el numero de elementos mostrados porque sino falla al hacer el checkbox, solo 
+                                        //lo hace de los que se muestran en pantalla.
+                                        table.page.len(-1).draw()
+                                        $(\'.all_chcktbl:not(:checked)\').attr(\'checked\', true);
+                                    }else{
+                                        table.page.len(10).draw()
+                                        $(\'.all_chcktbl:checked\').attr(\'checked\', false);
+                                    }
+                                } );   
+                
+                                
+                                
+                        });
+                    </script>
+
+                ';
+
                 ?>
 
-             <script type="text/javascript">    
-            $('#chckHead').click(function () {
-
-            if (this.checked == false) {
-
-                $('.chcktbl:checked').attr('checked', false);
-            }
-            else {
-                $('.chcktbl:not(:checked)').attr('checked', true);
-
-            }
-            });
-
-        // For demo to fit into DataTables site builder...
-        $('#categorias_table').
-        dataTable({
-            "pageLength": 25,
-            "searching": true,
-            "lengthChange": false
-        });
-    </script>
  
