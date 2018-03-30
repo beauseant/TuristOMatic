@@ -63,14 +63,22 @@
 			
 		}
 
-		function getBusquedasFilter ($listCategorias, $listDestinos, $listTipos ) {
+		function getBusquedasFilter ($listConsultas, $listDestinos, $listTipos ) {
 			$dbname = $this -> databaseName;
 
 			$queryDestino   = array('iddestino' => array( '$in' => $listDestinos));
-			$queryCategoria = array('idconsulta' => array( '$in' => $listCategorias));
+			$queryConsultas = array('idconsulta' => array( '$in' => $listConsultas));
 			$queryTipos		= array('Type' => array( '$in' => $listTipos));
 
-			$queryFinal 	= array ('$and' => array ($queryDestino, $queryCategoria, $queryTipos));
+			/*print_r ($queryDestino);
+			print '-----';
+			print_r ($queryConsultas);
+			print '-----';
+			print_r ($queryTipos);
+			exit();*/
+			#$queryResult	= array('')
+
+			$queryFinal 	= array ('$and' => array ($queryDestino, $queryConsultas, $queryTipos));
 
 			$collection = $this ->mdb->$dbname->busqueda;
 

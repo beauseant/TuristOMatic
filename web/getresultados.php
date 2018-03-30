@@ -68,12 +68,10 @@
                                 
                 $db = new Database ($DB_HOST , $_SESSION['dbname'], array("username" => $DB_USER, "password" => $DB_PWD) );
 
-                $busquedas = $db->getBusquedasFilter ( array_keys ($_SESSION['listCategorias']), 
+                $busquedas = $db->getBusquedasFilter ( array_keys ($_SESSION['listConsultas']), 
                                                  array_keys ($_SESSION['listDestinos']),
                                                  array_keys ($_REQUEST)
                                     );
-
-
                 
                 $consultas = $db -> getConsultas ();
                 $consultasDict = array();
@@ -82,25 +80,32 @@
                     foreach ($value['categoriasText'] as $categoria ) {
                         $salida = $salida . ',' . $categoria;
                     }
-                    $consultasDict[$value['idconsulta']] = $salida;
+                    $consultasDict[$value['idconsulta']] = [$salida, $value['consulta']];
                     
                 }
 
                 //$salida = $busquedas->toArray();*/
 
 
-                $salida = fopen("tmp/salida.csv", "wr") ;
+                #php://temp, guarda en memoria hasta dos megas, el resto a disco
+                #memory todo en memoria:
+                #$_SESSION['fileOutput'] = fopen('php://memory', "wr") ;
+
+                #$salida = $_SESSION['fileOutput'];
+                $salida = fopen ('tmp/salida.csv','wr');
+
                 $contador = 0;                            
                 foreach ($busquedas as $key => $value) {
                     $value['iddestino'] = $_SESSION['listDestinos'][$value['iddestino']];
-                    $value['categoria'] = $consultasDict[$value['idconsulta']];
+                    $value['categoria'] = $consultasDict[$value['idconsulta']][0];
+                    $value['idconsulta'] = $consultasDict[$value['idconsulta']][1];
+
                     foreach ($value as $keydato => $dato) {
                         if ($contador == 0){
-                            fwrite ($salida,('"' . $keydato . '",'));    
+                            fwrite ($salida,('"' . $keydato . '",'));                                
                         }else {
-                            fwrite ($salida,('"' . $dato . '",'));
+                            fwrite ($salida,('"' . $dato . '",'));                            
                         }
-
                     }
                     fwrite ($salida, PHP_EOL);
                     $contador ++;
