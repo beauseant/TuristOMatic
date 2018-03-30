@@ -8,11 +8,11 @@
 
 
 ?>
+
+
         <!-- Page Content -->
         <div class="container">
             <h1></h1>
-            
-
             <?php
             
                 if (sizeof ($_REQUEST)== 0){
@@ -52,7 +52,7 @@
                             <strong>Consultas seleccionadas</strong>:'. $strConsultas  .'
                     </div>                
                 ';
-
+    
 
                 $strResultados = '';
                 foreach (array_values ($_REQUEST) as $value) {
@@ -65,7 +65,7 @@
                             <strong>Tipo de resultados seleccionados</strong>:'. $strResultados  .'
                     </div>                
                 ';
-                                
+                                    
                 $db = new Database ($DB_HOST , $_SESSION['dbname'], array("username" => $DB_USER, "password" => $DB_PWD) );
 
                 $busquedas = $db->getBusquedasFilter ( array_keys ($_SESSION['listConsultas']), 
@@ -92,7 +92,8 @@
                 #$_SESSION['fileOutput'] = fopen('php://memory', "wr") ;
 
                 #$salida = $_SESSION['fileOutput'];
-                $salida = fopen ('tmp/salida.csv','wr');
+                $filename = 'tmp/' . session_id() .'.csv';
+                $salida = fopen ($filename,'wr');
 
                 $contador = 0;                            
                 foreach ($busquedas as $key => $value) {
@@ -113,16 +114,22 @@
                 fclose ($salida);
                 
 
-                echo '<h1>Encontradas: ' . $contador . ' búsquedas con esos datos:</h1>';
-
-                $filename = 'tmp/salida.csv';
+                echo '<h1>Encontradas: ' . $contador . ' búsquedas con esos datos:</h1>';                
 
                 $size = filesize($filename);
                 $units = array( 'B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB');
                 $power = $size > 0 ? floor(log($size, 1024)) : 0;
                 $size = number_format($size / pow(1024, $power), 2, '.', ',') . ' ' . $units[$power];
 
-                echo '<a href="descarga.php">Descargar (' .  $size . ')</a>';
+                echo '
+                    <form class="panel panel-default" id="descarga"  method="POST" action="descarga.php"> 
+                        <input type="submit" class="btn btn-primary" value="Descargar ('. $size .')">
+                        <input type="hidden" name="filename" value="'.$filename .'">
+                    </form>
+                ';
                 #print_r ($salida);
 
             ?>
+
+
+

@@ -8,6 +8,9 @@
 
 
 ?>
+
+
+
         <!-- Page Content -->
         <div class="container">
             <h1></h1>
@@ -74,7 +77,7 @@
                 
                 foreach ($tiposBusquedas as $key => $value) {
                     $salida = $salida . '
-                                <div class="form-check">
+                                <div class="form-check">                                    
                                     <input class="form-check-input" type="checkbox" value="'. $value . '" name="'. $value. '">
                                     <label class="form-check-label" for="defaultCheck1">'.
                                         $value
