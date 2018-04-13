@@ -137,6 +137,11 @@ class DB (object):
 
 
 
+	def grabarLibroCodigos (self, id, cat, tipo, multi ):
+		
+		if (tipo == 'principal'):
+			self.__collectionCategorias.update ({'idcategoria':{'$lt':id}}, {'$set':{'CatPrincipal':cat}}, multi=multi)
+
 	def cargarDestinosExpandidos (self):
 		destinosExpand 	= self.__collectionDestinosExpandidos.find ({})
 
@@ -145,8 +150,7 @@ class DB (object):
 			salida.update ( {destino['consultaexpandida']:[destino['iddestino'],destino['idconsulta']]})
 
 		return salida
-
-
+		
 
 	def normalizar (self, line):
 		return (line.lower().translate(str.maketrans( self.__dictNormalizado )))

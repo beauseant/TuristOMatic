@@ -50,12 +50,7 @@
 
                 <form class="panel panel-default" id="Frmbuscador"  method="POST" action="categorias.php">
                     <div class="form-inline">
-                            <select name="buscadorSelect" class="form-control col-sm-6" id="exampleFormControlSelect1">
-                                <option>DE</option>
-                                <option>UK</option>
-                                <option>FR</option>
-                                <option>IT</option>
-                            </select>
+                            <?php include ('includes/listabuscadores.php');?>
                             <button type="submit" class="btn btn-primary ">Siguiente</button>
                     </div>
                 </form>

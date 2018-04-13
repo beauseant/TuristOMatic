@@ -21,6 +21,8 @@
 
 		}
 
+		
+
 		function getDestinos () {
 
 			$dbname = $this -> databaseName;
@@ -87,13 +89,46 @@
 
 
 		}
+
+		function searchQuery ( $query ) {
+
+			$dbname = $this -> databaseName;
+
+
+			$collection = $this ->mdb->$dbname->busqueda;
+
+			$regex = new MongoDB\BSON\Regex ( '^' . $query . '^' );
+			
+			
+			$consulta = array('Query' => $regex );
+
+
+			return   ($collection->find( $consulta ));
+
+
+
+
+		}
+
+
+
 		function getCategorias () {
 
 			$dbname = $this -> databaseName;
 
 
 			$collection = $this ->mdb->$dbname->categoria;
-			return ($collection->find());
+			$allCats =  ($collection->find());
+
+			$tipos = array();
+
+			#creamos un diccionario con la categoria (informacional...) y dentro la categoria con todos sus datos:
+			foreach ($allCats as $col) {
+				$tipos[$col['CatPrincipal']][] =[$col['consulta'],$col['idcategoria']];
+			}
+
+			return $tipos;
+			
 
 
 		}
