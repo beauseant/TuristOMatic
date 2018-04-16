@@ -97,15 +97,14 @@
 
 			$collection = $this ->mdb->$dbname->busqueda;
 
-			$regex = new MongoDB\BSON\Regex ( '^' . $query . '^' );
+			$regex = new MongoDB\BSON\Regex ( '^' . 'desktop' . '^' );
 			
-			
-			$consulta = array('Query' => $regex );
+			$where = array("Query" => new MongoDB\BSON\Regex ($query,'i'));
+			#$consulta = array('Query' => $regex );
 
+			#,['limit' => 10] )
 
-			return   ($collection->find( $consulta ));
-
-
+			return   ($collection->find( $where));
 
 
 		}

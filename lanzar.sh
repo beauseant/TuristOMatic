@@ -12,6 +12,7 @@ CODEC=$9
 
 $3 ./cargarConsultas.py $DB_HOST $DB_DB $DB_USER $DB_PWD $FILES_CATS $CODEC
 $3 ./cargarDestinos.py $DB_HOST $DB_DB $DB_USER $DB_PWD $FILE_DESTINOS
+$3 ./cargarLibroCodigos.py $DB_HOST $DB_DB $DB_USER $DB_PWD
 
 
 for f in $FILES_BUSQ/*.csv

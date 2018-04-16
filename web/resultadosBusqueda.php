@@ -4,7 +4,7 @@
 
     <!-- Page Content -->
     <div class="container">
-      <h1 class="mt-5">Seleccione un destino</h1>
+      <h1 class="mt-5"><br></h1>
       <?php
             include_once ("classes/class.Database.php");
             require ("config.php");
@@ -49,11 +49,38 @@
 
             $busqueda = $db->searchQuery ($_REQUEST['criterio']);
 
-            foreach ($busqueda as $b) {
-                print_r ( $b );
-            }
+            $filename = 'tmp/' . session_id() .'_Busqueda.csv';
+            $salida = fopen ($filename,'wr');
 
-            #include ('includes/acordeonDestinos.php');
+            $contador = 0;                            
+            foreach ($busqueda as $key => $value) {
+                foreach ($value as $keydato => $dato) {
+                    if ($contador == 0){
+                        fwrite ($salida,('"' . $keydato . '",'));                                
+                    }else {
+                        fwrite ($salida,('"' . $dato . '",'));                            
+            }
+                }
+                fwrite ($salida, PHP_EOL);
+                $contador ++;
+            }
+            fclose ($salida);
+            
+
+            echo '<h1>Encontradas: ' . $contador . ' búsquedas con esos datos:</h1>';                
+
+            $size = filesize($filename);
+            $units = array( 'B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB');
+            $power = $size > 0 ? floor(log($size, 1024)) : 0;
+            $size = number_format($size / pow(1024, $power), 2, '.', ',') . ' ' . $units[$power];
+
+            echo '
+                <form class="panel panel-default" id="descarga"  method="POST" action="descarga.php"> 
+                    <input type="submit" class="btn btn-primary" value="Descargar ('. $size .')">
+                    <input type="hidden" name="filename" value="'.$filename .'">
+                </form>
+            ';
+
 
       ?>
     </div>
