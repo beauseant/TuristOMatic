@@ -44,6 +44,28 @@
 
 		}
 
+		function getListCategorias () {
+
+			$dbname = $this -> databaseName;
+
+			$collection = $this ->mdb->$dbname->categoria;
+			$options = ['sort' => ['idcategoria' => 1]];
+			$filter = array();
+
+			$data = $collection->find($filter, $options);
+
+
+			$listCats = array();
+			foreach ( $data as $cat ) {
+
+				$listCats[]=$cat['consulta'];
+
+			}
+
+			return $listCats;
+
+		}
+
 		function getConsultas () {
 
 			$dbname = $this -> databaseName;
@@ -81,10 +103,21 @@
 			#$queryResult	= array('')
 
 			$queryFinal 	= array ('$and' => array ($queryDestino, $queryConsultas, $queryTipos));
+			$fields 		= array ('projection'=>
+										array('Device' => 0,
+										'Column' => 0,
+										'Paid' => 0,
+										'Sitelinks' => 0,
+										'Subposition' => 0,
+										'Estimated SEM Position' => 0,
+										'_id' => 0,
+										'Estimated SEO Position' => 0
+									)
+							);
 
 			$collection = $this ->mdb->$dbname->busqueda;
 
-			return ($collection->find ( $queryFinal ));
+			return ($collection->find ( $queryFinal, $fields ));
 
 
 

@@ -74,16 +74,36 @@
                                     );
                 
                 $consultas = $db -> getConsultas ();
+
+                $listCategorias = $db -> getListCategorias ();
+
                 $consultasDict = array();
+                $consultasById = array ();
+
                 foreach ($consultas as $key => $value) {
                     $salida = '';
+                    $ids = array();
+
+                    foreach ($value['categorias'] as $categoriaid ) {
+                        $ids[] = $categoriaid;
+                    }
                     foreach ($value['categoriasText'] as $categoria ) {
                         $salida = $salida . ',' . $categoria;
                     }
                     $consultasDict[$value['idconsulta']] = [$salida, $value['consulta']];
+                    $consultasById[$value['idconsulta']] = $ids;
+
+                    /*if ($value['idconsulta'] == 120){
+                        print $salida;
+                        print_r ($ids);
+                        print_r ($consultasDict[$value['idconsulta']]);
+                    }*/
+                    
                     
                 }
 
+                //print ( implode(',', $listCategorias));
+                
                 //$salida = $busquedas->toArray();*/
 
 
@@ -99,7 +119,31 @@
                 foreach ($busquedas as $key => $value) {
                     $value['iddestino'] = $_SESSION['listDestinos'][$value['iddestino']];
                     $value['categoria'] = $consultasDict[$value['idconsulta']][0];
+
+                    $idconsultaOrg = $value['idconsulta'];
                     $value['idconsulta'] = $consultasDict[$value['idconsulta']][1];
+                    $value['domain_url'] = parse_url($value['URL'])['host'];
+                                            
+                    $contadorcats = 0;
+
+                    /*print_r ($listCategorias);
+                    print('###################################################################');
+                    print_r ($consultasById[ $idconsultaOrg]);
+                    print('###################################################################');
+                    print ($value['categoria']);
+                    print('###################################################################');
+                    print ($idconsultaOrg);
+                    exit();*/
+
+                    foreach ( $listCategorias as $cat) {
+                        
+                        if ( in_array ($contadorcats, $consultasById[ $idconsultaOrg])){
+                            $value [$cat] = 1;
+                        }else {
+                            $value [$cat] = 0;
+                        }
+                        $contadorcats++;
+                    }
 
                     foreach ($value as $keydato => $dato) {
                         if ($contador == 0){
