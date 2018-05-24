@@ -122,8 +122,11 @@
 
                     $idconsultaOrg = $value['idconsulta'];
                     $value['idconsulta'] = $consultasDict[$value['idconsulta']][1];
-                    $value['domain_url'] = parse_url($value['URL'])['host'];
-                                            
+		    try {
+                    	$value['domain_url'] = parse_url($value['URL'])['host'];
+                    } catch (Exception $e) {
+			$value['domain_url'] ='-';
+                    }
                     $contadorcats = 0;
 
                     /*print_r ($listCategorias);
