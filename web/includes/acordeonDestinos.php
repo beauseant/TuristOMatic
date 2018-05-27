@@ -34,6 +34,7 @@
             }
         ?>
     </div>
-    <h1></h1>
-    <button type="submit" value='ok' class="btn btn-primary">Siguiente</button>    
+    <h1></h1>    
+    <button  type="submit" value='ok' class="btn btn-primary float-right">Siguiente</button>
+
 </form>

@@ -36,7 +36,7 @@
                 #print_r (array_keys ($_SESSION['listDestinos']));
                 echo '
                     <div class="alert alert-info">
-                            <strong>Destinos seleccionados</strong>:'. $strDestinos  .'
+                            <strong>Destinos seleccionados</strong>: '. ltrim ($strDestinos, ',')  .'
                     </div>                
                 ';
 
@@ -49,7 +49,7 @@
                 #print_r (array_keys ($_SESSION['listCategorias']));
                 echo '
                     <div class="alert alert-info">
-                            <strong>Consultas seleccionadas</strong>:'. $strConsultas  .'
+                            <strong>Consultas seleccionadas</strong>: '. ltrim ($strConsultas, ',')  .'
                     </div>                
                 ';
     
@@ -62,7 +62,8 @@
                 }
                 echo '
                     <div class="alert alert-info">
-                            <strong>Tipo de resultados seleccionados</strong>:'. $strResultados  .'
+                            <strong>Resultados seleccionados</strong> ('. ltrim($strResultados,',')   .')
+                            <strong>para el dominio ' . $_SESSION['buscador']  .'
                     </div>                
                 ';
                                     
@@ -122,10 +123,10 @@
 
                     $idconsultaOrg = $value['idconsulta'];
                     $value['idconsulta'] = $consultasDict[$value['idconsulta']][1];
-		    try {
-                    	$value['domain_url'] = parse_url($value['URL'])['host'];
-                    } catch (Exception $e) {
-			$value['domain_url'] ='-';
+                    if(isset(parse_url($value['URL'])['host'])) {
+                        $value['domain_url'] = parse_url($value['URL'])['host'];
+                    }else{
+                        $value['domain_url'] = '-----';
                     }
                     $contadorcats = 0;
 

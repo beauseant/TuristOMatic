@@ -42,13 +42,13 @@
                 }
                 echo '
                     <div class="alert alert-info">
-                            <strong>Destinos seleccionados</strong>:'. $strDestinos  .'
+                            <strong>Destinos seleccionados</strong>: '. ltrim($strDestinos,',')  .'
                     </div>                
                 ';                
 
                 echo '
                     <div class="alert alert-info">
-                            <strong>Buscador seleccionado</strong>:'. $_SESSION['buscador']  .'
+                            <strong>Dominio de búsqueda</strong>: '. $_SESSION['buscador']  .'
                     </div>                
                 ';
 

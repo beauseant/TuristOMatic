@@ -37,7 +37,7 @@
                 }
                 echo '
                     <div class="alert alert-info">
-                            <strong>Destinos seleccionados</strong>:'. $strDestinos  .'
+                            <strong>Destinos seleccionados</strong>: '. ltrim($strDestinos,',')  .'
                             <a href="destinos.php">añadir más</a>
                     </div>                
                 ';
@@ -46,7 +46,7 @@
                 
 
             ?>
-                <h1 class="mt-5">Seleccione un buscador:</h1>
+                <h1 class="mt-5">Seleccione dominio de búsqueda:</h1>
 
                 <form class="panel panel-default" id="Frmbuscador"  method="POST" action="categorias.php">
                     <div class="form-inline">

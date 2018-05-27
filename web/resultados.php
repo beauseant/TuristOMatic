@@ -54,15 +54,43 @@
                     ';
                     exit();
                 }
+
+                $strDestinos = '';
+                foreach ($_SESSION['listDestinos'] as $key => $value) {
+
+                    $strDestinos = $strDestinos . ','.  $value;
+
+                }
+                echo '
+                    <div class="alert alert-info">
+                            <strong>Destinos seleccionados</strong>: '. ltrim($strDestinos,',')  .'
+                    </div>                
+                ';
+
+                $strCats = '';
+                foreach ($_SESSION['listCategorias'] as $key => $value) {
+
+                    $strCats = $strCats . ','.  $value;
+
+                }
+                echo '
+                    <div class="alert alert-info">
+                            <strong>Categorías seleccionadas</strong>: '. ltrim($strCats,',')  .'
+                    </div>                
+                ';
+
+                
+                
                 
                 $salida = '
                     <div class="alert alert-info">
                             <strong>Se han encontrado ' . sizeof ($listaConsultas) 
-                            .' consultas con las '.sizeof($_SESSION['listCategorias']) .' categorías seleccionadas (para el buscador '. $_SESSION['buscador'].').</strong>                                                
+                            .' consultas con las '.sizeof($_SESSION['listCategorias']) .' categorías y los ' . sizeof($_SESSION['listDestinos']) . ' destinos seleccionados (para el buscador '. $_SESSION['buscador'].').</strong>                                                
                     </div>                            
                 ';
-            
+                            
                 echo $salida;
+
                 echo '
                     <h1></h1>
                     <h1 class="mt-5">Seleccione los resultados que quiere obtener:</h1>
@@ -72,21 +100,22 @@
                 $tiposBusquedas = $db->getBusquedaTypeDistinct ();
 
                 $salida = '
-                        <form class="panel panel-default" id="FrmResultados"  method="POST" action="getresultados.php">                            
+                        <form class="panel panel-default" id="FrmResultados"  method="POST" action="getresultados.php">
+                            <table id="filtrores" class="table table-sm table-hover table-striped"><thead><tr><th></th><th></th></tr></thead><tbody>
                     ';
-                
-                foreach ($tiposBusquedas as $key => $value) {
+
+                    foreach ($tiposBusquedas as $key => $value) {
                     $salida = $salida . '
-                                <div class="form-check">                                    
-                                    <input class="form-check-input" type="checkbox" value="'. $value . '" name="'. $value. '">
-                                    <label class="form-check-label" for="defaultCheck1">'.
-                                        $value
-                                    .'</label>
-                                </div>
+                                <tr>
+                                    <td><label class="form-check-label" for="defaultCheck1">'. $value .'</label></td>
+                                    <td><input checked class="form-check-input" type="checkbox" value="'. $value . '" name="'. $value. '"></td>                                    
+                                </tr>
                     ';
                 }
                 $salida = $salida . '
-                            <button type="submit" class="btn btn-primary ">Siguiente</button>
+                            </tbody></table>
+                                <button type="submit" class="btn btn-primary float-right">Siguiente</button>
+                            
                         </form>
                         ';
                 echo $salida ;
@@ -94,3 +123,4 @@
                 
 
             ?>
+
