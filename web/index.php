@@ -25,7 +25,7 @@
         <a class="nav-link js-scroll-trigger" href="about.php">información</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link js-scroll-trigger" href="#download">Software</a>
+        <a class="nav-link js-scroll-trigger" href="software.php">Software</a>
       </li>
     </ul>
   </div>

@@ -21,7 +21,7 @@
     <link href='https://fonts.googleapis.com/css?family=Cabin:700' rel='stylesheet' type='text/css'>
 
     <!-- Custom styles for this template -->
-    <link href="css/grayscale.min.css" rel="stylesheet">
+    <link href="css/grayscale.css" rel="stylesheet">
     <link href="js/datatables/dataTables.bootstrap4.css" rel="stylesheet">
     <link href="css/jquery.dataTables.css" rel="stylesheet">
   </head>

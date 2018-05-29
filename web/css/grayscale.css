@@ -117,6 +117,42 @@ a:focus, a:hover {
   }
 }
 
+
+.mastehead-about  {
+  display: table;
+  width: 100%;
+  height: auto;
+  padding: 400px 0;
+  color: white;
+
+  background: url("../img/about-bg.jpg") no-repeat bottom center  scroll;
+
+  background-color: black;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+
+.mastehead-soft  {
+  display: table;
+  width: 100%;
+  height: auto;
+  padding: 500px 0;
+  
+  color: white;
+
+  background: url("../img/soft-bg.jpg") no-repeat bottom center  scroll;
+
+  background-color: black;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+
 .masthead {
   display: table;
   width: 100%;
@@ -186,7 +222,7 @@ a:focus, a:hover {
 
 .download-section {
   color: white;
-  background: url("../img/downloads-bg.jpg") no-repeat center center scroll;
+  background: url("../img/about-bg.jpg") no-repeat center center scroll;
   background-color: black;
   -webkit-background-size: cover;
   -moz-background-size: cover;

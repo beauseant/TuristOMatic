@@ -22,7 +22,7 @@
         <a class="nav-link js-scroll-trigger" href="index.php">inicio</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link js-scroll-trigger" href="software.php">software</a>
+        <a class="nav-link js-scroll-trigger" href="about.php">Informaćion</a>
       </li>
     </ul>
   </div>
@@ -30,27 +30,19 @@
 </nav>
 
 <!-- Intro Header -->
-<header class="mastehead-about">
-<div class="intro-body">
+<header class="mastehead-soft">
+<div class="intro-body" >
   <div class="container">
     <div class="row">
       <div class="col-lg-8 mx-auto">
-        <h1 >ITOURIST. El turista en la Web:</h3>
+        <h1>Herramientas utilizadas:</h3>
         <p>
-      Hábitos informacionales y selección de destino turístico (CSO2014-59896-P). Proyecto I+D de Excelencia, Ministerio de Economía y Competitividad de España.
-Proyecto liderado por la Universitat Pompeu Fabra.</p>
-
-        <p>Universidades participantes:</p>
-        <ul>        
-            <li>Universitat de Barcelona</li>
-            <li>Universidad de Granada</li>
-            <li>Universitat Pompeu Fabra</li>
-            <li> Universitat de Vic</li>
-        </ul>        
-
-        <p>
-            Software utilizado y descarga de la información, <a href="software.php">aquí</a>
+            El diseño de la página web y las herramientas utilizadas para generar los datos se encuentran disponibles para ser usadas libremente:
         </p>
+        <ul>        
+            <li><a href="https://github.com/beauseant/TuristOMatic/releases">Aplicación web para la presentación de resultados (esta página)</a></li>
+            <li><a href="https://github.com/beauseant/ConsultasT/releases">Herramienta web para clasificar las consultas.</a></li>
+        </ul>        
       </div>
     </div>
   </div>

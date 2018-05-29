@@ -127,6 +127,18 @@ a {
   }
 }
 
+.mastheadabout  {
+  color: white;
+  background: url('../img/about-bg.jpg') no-repeat center center scroll;
+  background-color: black;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+  
+
+
 .masthead {
   display: table;
 
@@ -138,6 +150,7 @@ a {
 
   color: white;
   background: url('../img/intro-bg.jpg') no-repeat bottom center scroll;
+  
   background-color: black;
   -webkit-background-size: cover;
   -moz-background-size: cover;
