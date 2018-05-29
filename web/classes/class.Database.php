@@ -154,11 +154,19 @@
 
 			$tipos = array();
 
+			#En la categoria de tipo de busqueda nos quedamos solo con estos tipos, aunque en la bd hemos guardado todos:
+			$tipoBusqueda = array ('Informacional','Informacional', 'Informacional simple', 'Transaccional', 'Navegacional' );
+			
 			#creamos un diccionario con la categoria (informacional...) y dentro la categoria con todos sus datos:
-			foreach ($allCats as $col) {
-				$tipos[$col['CatPrincipal']][] =[$col['consulta'],$col['idcategoria']];
-			}
 
+			foreach ($allCats as $col) {			
+				if ( (  $col['CatPrincipal'] =='Tipo de búsqueda') and (! in_array ($col['consulta'], $tipoBusqueda))) {										
+					$borrar = true;									
+				}else {
+					$tipos[$col['CatPrincipal']][] =[$col['consulta'],$col['idcategoria']];
+				}				
+			}
+			
 			return $tipos;
 			
 

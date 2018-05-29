@@ -5,10 +5,10 @@
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
+    <meta name="description" content="TOURIST: base de datos para la búsqueda y descarga de consultas realizadas por turistas alemanes, ingleses, franceses e italianos sobre destinos turísticos españoles">
     <meta name="author" content="">
 
-    <title>TuristOMatic</title>
+    <title>ITOURIST: Global tourist search database</title>
 
     <!-- Bootstrap core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">

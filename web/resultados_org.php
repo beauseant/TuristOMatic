@@ -96,9 +96,6 @@
                     <h1 class="mt-5">Seleccione los resultados que quiere obtener:</h1>
                 ';
 
-                /* 
-                    NO QUEREMOS TODOS LOS TIPOS DE BUSQUEDAS EN LA BD, SOLO UNOS POCOS ELEGIDOS:
-
                 #los distintos tipos de busquedas que hemos guardado, organic, images, sem...
                 $tiposBusquedas = $db->getBusquedaTypeDistinct ();
 
@@ -115,33 +112,6 @@
                                 </tr>
                     ';
                 }
-                */
-            ?>
-
-
-<form class="panel panel-default" id="FrmResultados"  method="POST" action="getresultados.php">
-                            <table id="filtrores" class="table table-sm table-hover table-striped"><thead><tr><th></th><th></th></tr></thead><tbody>
-                    
-                                <tr>
-                                    <td><label class="form-check-label" for="defaultCheck1">knowledge</label></td>
-                                    <td><input checked class="form-check-input" type="checkbox" value="knowledge" name="knowledge"></td>                                    
-                                </tr>
-                    
-                                <tr>
-                                    <td><label class="form-check-label" for="defaultCheck1">organic</label></td>
-                                    <td><input checked class="form-check-input" type="checkbox" value="organic" name="organic"></td>                                    
-                                </tr>
-                                        
-                                <tr>
-                                    <td><label class="form-check-label" for="defaultCheck1">adwords</label></td>
-                                    <td><input checked class="form-check-input" type="checkbox" value="adwords" name="adwords"></td>                                    
-                                </tr>
-                                        
-
-
-            <?php
-
-
                 $salida = $salida . '
                             </tbody></table>
                                 <button type="submit" class="btn btn-primary float-right">Siguiente</button>
