@@ -22,7 +22,7 @@
                         echo '
                         <div class="alert alert-danger">
                                 <strong>Necesito al menos una categoría seleccionada...</strong>:
-                                <a href="javascript:history.go(-1)">pulse para añadirla</a>
+                                <a href="categorias.php">pulse para añadirla</a>
                         </div>                
                     ';
                     exit();                    
