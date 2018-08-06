@@ -152,6 +152,7 @@
                     foreach ($value as $keydato => $dato) {
                         if ($contador == 0){
                             fwrite ($salida,('"' . $keydato . '",'));                                
+			    fwrite ($salida,('"' . $dato . '",'));
                         }else {
                             fwrite ($salida,('"' . $dato . '",'));                            
                         }
