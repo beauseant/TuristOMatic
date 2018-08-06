@@ -148,16 +148,18 @@
                         }
                         $contadorcats++;
                     }
-
-                    foreach ($value as $keydato => $dato) {
-                        if ($contador == 0){
+                    if ($contador==0){
+		    	foreach ($value as $keydato => $dato) {
                             fwrite ($salida,('"' . $keydato . '",'));                                
-			    fwrite ($salida,('"' . $dato . '",'));
-                        }else {
-                            fwrite ($salida,('"' . $dato . '",'));                            
-                        }
+			}
+                    	fwrite ($salida, PHP_EOL);
                     }
-                    fwrite ($salida, PHP_EOL);
+		   foreach ($value as $keydato => $dato) {
+		         fwrite ($salida,('"' . $dato . '",'));                            
+
+                   }
+                   fwrite ($salida, PHP_EOL);
+		    
                     $contador ++;
                 }
                 fclose ($salida);
